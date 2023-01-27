@@ -13,7 +13,7 @@ def simple_function_():
 
 
 with DAG(
-    "CustomerChurnModel",
+    "CustomerChurnModel2",
     default_args={
         "depends_on_past": False,
         "retries": 1,
@@ -23,10 +23,22 @@ with DAG(
     start_date=datetime(2021, 1, 1),
     catchup=False,
 ) as dag:
-    @task
-    def simple_function():
-        simple_function_()
+    # @task
+    # def simple_function():
+    #     simple_function_()
 
-    res = simple_function()
+    # res = simple_function()
 
-    res
+    # res
+    test = KubernetesPodOperator(
+        namespace="default",
+        image="alpine",
+        cmds=["echo 'Hi!'"],
+        name="test",
+        is_delete_operator_pod=True,
+        in_cluster=True,
+        task_id="test",
+        get_logs=True,
+    )
+
+    test
