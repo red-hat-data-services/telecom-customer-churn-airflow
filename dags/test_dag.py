@@ -37,7 +37,7 @@ with DAG(
         name="test",
         # is_delete_operator_pod=True,
         # in_cluster=True,
-        # task_id="test",
+        task_id="test",
         get_logs=True,
     )
 
