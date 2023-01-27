@@ -22,6 +22,10 @@ with DAG(
     start_date=datetime(2021, 1, 1),
     catchup=False,
 ) as dag:
-    @task.kubernetes(images = "python:3.8-slim-buster", namespace = "airflow", do_xcom_push=True)
+    @task
     def simple_function():
         simple_function_()
+
+    res = simple_function()
+
+    res
