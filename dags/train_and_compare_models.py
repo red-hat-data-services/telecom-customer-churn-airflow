@@ -6,10 +6,6 @@ from datetime import datetime, timedelta
 from textwrap import dedent
 
 
-def push_to_xcoms(ti):
-    pass
-
-
 def process_data_():
     from sklearn.model_selection import train_test_split
     from sklearn.preprocessing import MinMaxScaler
@@ -45,6 +41,7 @@ def process_data_():
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=101)
 
+    print("Done!")
     #Save somewhere
     
 
@@ -111,13 +108,14 @@ with DAG(
     default_args={
         "depends_on_past": False,
         "retries": 1,
-        "retry_delay": timedelta(minutes=5),
     },
     description="A simple tutorial DAG",
     schedule=timedelta(days=1),
     start_date=datetime(2021, 1, 1),
     catchup=False,
 ) as dag:
-    @task.kubernetes(images = "", namespace = "airflow", do_xcom_push=True)
+    @task
     def process_data():
         process_data_()
+
+    process_data
