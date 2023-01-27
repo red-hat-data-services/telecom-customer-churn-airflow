@@ -110,7 +110,6 @@ with DAG(
         "retries": 1,
     },
     description="A simple tutorial DAG",
-    schedule=timedelta(days=1),
     start_date=datetime(2021, 1, 1),
     catchup=False,
 ) as dag:
