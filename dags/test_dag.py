@@ -31,13 +31,13 @@ with DAG(
 
     # res
     test = KubernetesPodOperator(
-        namespace="default",
+        namespace="airflow",
         image="alpine",
         cmds=["echo 'Hi!'"],
         name="test",
-        is_delete_operator_pod=True,
-        in_cluster=True,
-        task_id="test",
+        # is_delete_operator_pod=True,
+        # in_cluster=True,
+        # task_id="test",
         get_logs=True,
     )
 
