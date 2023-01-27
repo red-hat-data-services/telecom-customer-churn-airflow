@@ -32,7 +32,7 @@ with DAG(
     # res
     test = KubernetesPodOperator(
         namespace="airflow",
-        image="alpine",
+        image="quay.io/apache/bash",
         cmds=["bash", "-cx"],
         arguments=["echo", "10", "echo pwd"],
         name="test",
