@@ -33,7 +33,8 @@ with DAG(
     test = KubernetesPodOperator(
         namespace="airflow",
         image="alpine",
-        cmds=["echo 'Hi!'"],
+        cmds=["bash", "-cx"],
+        arguments=["echo", "10", "echo pwd"],
         name="test",
         # is_delete_operator_pod=True,
         # in_cluster=True,
