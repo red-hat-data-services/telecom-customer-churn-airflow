@@ -1,8 +1,16 @@
 from airflow import DAG
+from airflow.providers.cncf.kubernetes.operators.kubernetes_pod import KubernetesPodOperator
+from airflow.decorators import task
+
 from datetime import datetime, timedelta
 from textwrap import dedent
 
-def process_data():
+
+def push_to_xcoms(ti):
+    pass
+
+
+def process_data_():
     from sklearn.model_selection import train_test_split
     from sklearn.preprocessing import MinMaxScaler
     import pandas as pd
@@ -38,9 +46,9 @@ def process_data():
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=101)
 
     #Save somewhere
-    save_location = ""
+    
 
-def model_randomforest():
+def model_randomforest_():
     from sklearn.ensemble import RandomForestClassifier
     from sklearn import metrics
 
@@ -52,18 +60,18 @@ def model_randomforest():
     model.fit(X_train, y_train)
 
     model_location = save(model)
-    xcom_push(key='ModelLocation', value=model_location)
+    ti.xcom_push(key='ModelLocation', value=model_location)
 
     prediction_test = model.predict(X_test)
     accuracy = metrics.accuracy_score(y_test, prediction_test)
-    xcom_push(key='Accuracy', value=accuracy)
+    return accuracy
 
 
-def model_xgboost():
+def model_xgboost_():
     from xgboost import XGBClassifier
     from sklearn import metrics
 
-    save_location = xcom_pull(key='TrainingAndTestingStorage', task_id="process_data")
+    save_location = ti.xcom_pull(key='TrainingAndTestingStorage', task_id="process_data")
 
     X_train, y_train, X_test, y_test = load(save_location)
 
@@ -71,28 +79,28 @@ def model_xgboost():
     model.fit(X_train, y_train)
 
     model_location = save(model)
-    xcom_push(key='ModelLocation', value=model_location)
+    ti.xcom_push(key='ModelLocation', value=model_location)
 
     preds = model.predict(X_test)
     accuracy = metrics.accuracy_score(y_test, preds)
-    xcom_push(key='Accuracy', value=accuracy)
+    ti.xcom_push(key='Accuracy', value=accuracy)
 
 
-def comapre():
-    xgboost_acc = xcom_pull(key='Accuracy', task_id="XGBoostTrainAndEval")
-    randomforest_acc = xcom_pull(key='Accuracy', task_id="RandomForestTrainAndEval")
+def comapre_():
+    xgboost_acc = ti.xcom_pull(key='Accuracy', task_id="XGBoostTrainAndEval")
+    randomforest_acc = ti.xcom_pull(key='Accuracy', task_id="RandomForestTrainAndEval")
 
     if xgboost_acc>randomforest_acc:
-        xcom_push(key='BestModel', value=xgboost_acc.task_id)
+        ti.xcom_push(key='BestModel', value=xgboost_acc.task_id)
     else:
-        xcom_push(key='BestModel', value=randomforest_acc.task_id)
+        ti.xcom_push(key='BestModel', value=randomforest_acc.task_id)
 
 
-def push_model():
+def push_model_():
     prod_model_location = ""
 
-    best_model_task_id = xcom_pull(key='BestModel', task_id="CompareModels")
-    best_model_location = xcom_pull(key='ModelLocation', task_id=best_model_task_id)
+    best_model_task_id = ti.xcom_pull(key='BestModel', task_id="CompareModels")
+    best_model_location = ti.xcom_pull(key='ModelLocation', task_id=best_model_task_id)
 
     model = load(best_model_location)
     save(prod_model_location)
@@ -109,6 +117,7 @@ with DAG(
     schedule=timedelta(days=1),
     start_date=datetime(2021, 1, 1),
     catchup=False,
-    tags=["example"],
 ) as dag:
-    pass
+    @task.kubernetes(images = "", namespace = "airflow", do_xcom_push=True)
+    def process_data():
+        process_data_()
