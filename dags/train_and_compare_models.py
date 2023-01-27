@@ -117,4 +117,4 @@ with DAG(
     def process_data():
         process_data_()
 
-    process_data
+    task1 = process_data()
