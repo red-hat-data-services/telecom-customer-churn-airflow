@@ -48,7 +48,7 @@ op_8ba36868_dd72_48e8_a0ed_8c22858b666b = KubernetesPodOperator(
     name="Untitled",
     trigger_rule="all_success",
     namespace="airflow",
-    image="image-registry.openshift-image-registry.svc:5000/rainforest-ci-cd/airflow-runner:2.3.2",
+    image="quay.io/repository/eformat/airflow-runner:2.5.1",
     cmds=["sh", "-c"],
     arguments=[
         "mkdir -p ./jupyter-work-dir/ && cd ./jupyter-work-dir/ && echo 'Downloading file:///opt/app-root/lib/python3.8/site-packages/elyra/kfp/bootstrapper.py' && curl --fail -H 'Cache-Control: no-cache' -L file:///opt/app-root/lib/python3.8/site-packages/elyra/kfp/bootstrapper.py --output bootstrapper.py && echo 'Downloading file:///elyra-deps/requirements-elyra.txt' && echo 'Downloading file:///elyra-deps/requirements-elyra-py37.txt' && curl --fail -H 'Cache-Control: no-cache' -L file:///elyra-deps/requirements-elyra-py37.txt --output requirements-elyra-py37.txt && curl --fail -H 'Cache-Control: no-cache' -L file:///elyra-deps/requirements-elyra.txt --output requirements-elyra.txt && python3 -m pip install packaging && python3 -m pip freeze > requirements-current.txt && python3 bootstrapper.py --pipeline-name 'real-test-2' --cos-endpoint http://s3.openshift-storage.svc --cos-bucket airflow-storage-6ddf8b2b-517b-4511-84bc-58ebbbbaf809 --cos-directory 'real-test-2-0216092133' --cos-dependencies-archive 'Untitled-8ba36868-dd72-48e8-a0ed-8c22858b666b.tar.gz' --file 'Untitled.ipynb' "
