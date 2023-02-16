@@ -62,8 +62,8 @@ op_8ba36868_dd72_48e8_a0ed_8c22858b666b = KubernetesPodOperator(
     volumes=[],
     volume_mounts=[],
     secrets=[
-        Secret("env", "AWS_ACCESS_KEY_ID", "s3-auth", "AWS_ACCESS_KEY_ID"),
-        Secret("env", "AWS_SECRET_ACCESS_KEY", "s3-auth", "AWS_SECRET_ACCESS_KEY"),
+        Secret("env", "AWS_ACCESS_KEY_ID", "airflow-storage", "AWS_ACCESS_KEY_ID"),
+        Secret("env", "AWS_SECRET_ACCESS_KEY", "airflow-storage", "AWS_SECRET_ACCESS_KEY"),
     ],
     annotations={},
     labels={},
