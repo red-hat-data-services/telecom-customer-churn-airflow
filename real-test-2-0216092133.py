@@ -31,13 +31,13 @@ Created with Elyra 3.12.0 pipeline editor using `untitled.pipeline`.
 env_var_secret_id = Secret(
     deploy_type="env",
     deploy_target="AWS_ACCESS_KEY_ID",
-    secret="s3-auth",
+    secret="airflow-storage",
     key="AWS_ACCESS_KEY_ID",
 )
 env_var_secret_key = Secret(
     deploy_type="env",
     deploy_target="AWS_SECRET_ACCESS_KEY",
-    secret="s3-auth",
+    secret="airflow-storage",
     key="AWS_SECRET_ACCESS_KEY",
 )
 
