@@ -1,7 +1,6 @@
 # Telecom Customer Churn using Airflow and Red Hat OpenShift Data Science
 
-!!!info
-    The full source and instructions for this demo are available in **[this repo](https://github.com/red-hat-data-services/telecom-customer-churn-airflow){:target="_blank"}**
+You can find the [ai-on-openshift.io](ai-on-openshift.io) version of this demo guide here: [https://ai-on-openshift.io/demos/telecom-customer-churn-airflow/telecom-customer-churn-airflow/](https://ai-on-openshift.io/demos/telecom-customer-churn-airflow/telecom-customer-churn-airflow/)
 
 ## Demo description
 
