@@ -21,7 +21,7 @@ with DAG(
 
     test = KubernetesPodOperator(
         namespace="airflow",
-        image="quay.io/apache/bash",
+        image="quay.io/eformat/airflow-runner:2.5.1",
         cmds=["bash", "-cx"],
         arguments=["echo", "10", "echo pwd"],
         name="test",
