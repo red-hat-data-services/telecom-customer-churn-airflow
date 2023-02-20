@@ -1,0 +1,346 @@
+{
+  "doc_type": "pipeline",
+  "version": "3.0",
+  "json_schema": "http://api.dataplatform.ibm.com/schemas/common-pipeline/pipeline-flow/pipeline-flow-v3-schema.json",
+  "id": "elyra-auto-generated-pipeline",
+  "primary_pipeline": "primary",
+  "pipelines": [
+    {
+      "id": "primary",
+      "nodes": [
+        {
+          "id": "9ca028c1-8616-4fee-971f-f8225b23a7c9",
+          "type": "execution_node",
+          "op": "execute-notebook-node",
+          "app_data": {
+            "component_parameters": {
+              "dependencies": [],
+              "include_subdirectories": false,
+              "outputs": [],
+              "env_vars": [
+                {
+                  "env_var": "AWS_ACCESS_KEY_ID"
+                },
+                {
+                  "env_var": "AWS_SECRET_ACCESS_KEY"
+                },
+                {
+                  "env_var": "AWS_S3_ENDPOINT"
+                },
+                {
+                  "env_var": "AWS_S3_BUCKET"
+                }
+              ],
+              "kubernetes_pod_annotations": [],
+              "kubernetes_pod_labels": [],
+              "kubernetes_secrets": [],
+              "kubernetes_tolerations": [],
+              "mounted_volumes": [],
+              "filename": "../include/notebooks/process_data.ipynb",
+              "runtime_image": "quay.io/eformat/airflow-runner:2.5.1"
+            },
+            "label": "",
+            "ui_data": {
+              "label": "process_data.ipynb",
+              "image": "/notebook/telecom-customer-churn/customer-churn/static/elyra/notebook.svg",
+              "x_pos": 305,
+              "y_pos": 332,
+              "description": "Run notebook file"
+            }
+          },
+          "inputs": [
+            {
+              "id": "inPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Input Port"
+                }
+              }
+            }
+          ],
+          "outputs": [
+            {
+              "id": "outPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Output Port"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "819bd5cd-a021-4ce6-80b4-fc119da9fb73",
+          "type": "execution_node",
+          "op": "execute-notebook-node",
+          "app_data": {
+            "component_parameters": {
+              "dependencies": [],
+              "include_subdirectories": false,
+              "outputs": [],
+              "env_vars": [
+                {
+                  "env_var": "AWS_ACCESS_KEY_ID"
+                },
+                {
+                  "env_var": "AWS_SECRET_ACCESS_KEY"
+                },
+                {
+                  "env_var": "AWS_S3_ENDPOINT"
+                },
+                {
+                  "env_var": "AWS_S3_BUCKET"
+                }
+              ],
+              "kubernetes_pod_annotations": [],
+              "kubernetes_pod_labels": [],
+              "kubernetes_secrets": [],
+              "kubernetes_tolerations": [],
+              "mounted_volumes": [],
+              "filename": "../include/notebooks/model_randomforest.ipynb",
+              "runtime_image": "quay.io/eformat/airflow-runner:2.5.1"
+            },
+            "label": "",
+            "ui_data": {
+              "label": "model_randomforest.ipynb",
+              "image": "/notebook/telecom-customer-churn/customer-churn/static/elyra/notebook.svg",
+              "x_pos": 666,
+              "y_pos": 450,
+              "description": "Run notebook file"
+            }
+          },
+          "inputs": [
+            {
+              "id": "inPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Input Port"
+                }
+              },
+              "links": [
+                {
+                  "id": "2a9f7d0c-737d-4155-9942-9f73a79d3f0a",
+                  "node_id_ref": "9ca028c1-8616-4fee-971f-f8225b23a7c9",
+                  "port_id_ref": "outPort"
+                }
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "id": "outPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Output Port"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "5c7a887a-6833-4b0e-8795-e0b8bbd6d2b9",
+          "type": "execution_node",
+          "op": "execute-notebook-node",
+          "app_data": {
+            "component_parameters": {
+              "dependencies": [],
+              "include_subdirectories": false,
+              "outputs": [],
+              "env_vars": [
+                {
+                  "env_var": "AWS_ACCESS_KEY_ID"
+                },
+                {
+                  "env_var": "AWS_SECRET_ACCESS_KEY"
+                },
+                {
+                  "env_var": "AWS_S3_ENDPOINT"
+                },
+                {
+                  "env_var": "AWS_S3_BUCKET"
+                }
+              ],
+              "kubernetes_pod_annotations": [],
+              "kubernetes_pod_labels": [],
+              "kubernetes_secrets": [],
+              "kubernetes_tolerations": [],
+              "mounted_volumes": [],
+              "filename": "../include/notebooks/compare_and_push.ipynb",
+              "runtime_image": "quay.io/eformat/airflow-runner:2.5.1"
+            },
+            "label": "",
+            "ui_data": {
+              "label": "compare_and_push.ipynb",
+              "image": "/notebook/telecom-customer-churn/customer-churn/static/elyra/notebook.svg",
+              "x_pos": 1050,
+              "y_pos": 358,
+              "description": "Run notebook file"
+            }
+          },
+          "inputs": [
+            {
+              "id": "inPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Input Port"
+                }
+              },
+              "links": [
+                {
+                  "id": "865fc528-ecce-42d1-8b98-3f5b8e515529",
+                  "node_id_ref": "819bd5cd-a021-4ce6-80b4-fc119da9fb73",
+                  "port_id_ref": "outPort"
+                },
+                {
+                  "id": "5c2aa9ac-37b3-4838-9758-8b024e5cd794",
+                  "node_id_ref": "6ce8942a-82e1-4599-a195-30ba5459e2a7",
+                  "port_id_ref": "outPort"
+                }
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "id": "outPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Output Port"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "6ce8942a-82e1-4599-a195-30ba5459e2a7",
+          "type": "execution_node",
+          "op": "execute-notebook-node",
+          "app_data": {
+            "component_parameters": {
+              "dependencies": [],
+              "include_subdirectories": false,
+              "outputs": [],
+              "env_vars": [
+                {
+                  "env_var": "AWS_ACCESS_KEY_ID"
+                },
+                {
+                  "env_var": "AWS_SECRET_ACCESS_KEY"
+                },
+                {
+                  "env_var": "AWS_S3_ENDPOINT"
+                },
+                {
+                  "env_var": "AWS_S3_BUCKET"
+                }
+              ],
+              "kubernetes_pod_annotations": [],
+              "kubernetes_pod_labels": [],
+              "kubernetes_secrets": [],
+              "kubernetes_tolerations": [],
+              "mounted_volumes": [],
+              "filename": "../include/notebooks/model_gradient_boost.ipynb",
+              "runtime_image": "quay.io/eformat/airflow-runner:2.5.1"
+            },
+            "label": "",
+            "ui_data": {
+              "label": "model_gradient_boost.ipynb",
+              "image": "/notebook/telecom-customer-churn/customer-churn/static/elyra/notebook.svg",
+              "x_pos": 670,
+              "y_pos": 226,
+              "description": "Run notebook file"
+            }
+          },
+          "inputs": [
+            {
+              "id": "inPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Input Port"
+                }
+              },
+              "links": [
+                {
+                  "id": "2ee5847c-03ca-43db-8b2d-e1f9947ed3f6",
+                  "node_id_ref": "9ca028c1-8616-4fee-971f-f8225b23a7c9",
+                  "port_id_ref": "outPort"
+                }
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "id": "outPort",
+              "app_data": {
+                "ui_data": {
+                  "cardinality": {
+                    "min": 0,
+                    "max": -1
+                  },
+                  "label": "Output Port"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "app_data": {
+        "ui_data": {
+          "comments": []
+        },
+        "version": 8,
+        "runtime_type": "APACHE_AIRFLOW",
+        "properties": {
+          "pipeline_defaults": {
+            "kubernetes_tolerations": [],
+            "kubernetes_pod_annotations": [],
+            "mounted_volumes": [],
+            "kubernetes_pod_labels": [],
+            "kubernetes_secrets": [],
+            "env_vars": [
+              {
+                "env_var": "AWS_S3_ENDPOINT",
+                "value": "http://s3.openshift-storage.svc"
+              },
+              {
+                "env_var": "AWS_S3_BUCKET",
+                "value": "airflow-storage-6ddf8b2b-517b-4511-84bc-58ebbbbaf809"
+              }
+            ]
+          },
+          "name": "train_and_compare_models",
+          "runtime": "Apache Airflow"
+        }
+      },
+      "runtime_ref": ""
+    }
+  ],
+  "schemas": []
+}
